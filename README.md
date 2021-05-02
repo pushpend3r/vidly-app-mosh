@@ -1,5 +1,7 @@
 # Getting Started with Create React App
 
+[![Netlify Status](https://api.netlify.com/api/v1/badges/d75f530a-14f4-420b-91e7-48415f4fb50a/deploy-status)](https://app.netlify.com/sites/vidly-app-mosh/deploys)
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
