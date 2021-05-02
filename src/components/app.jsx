@@ -5,7 +5,6 @@ import Movies from "./movies";
 import Customers from "./customers";
 import Rentals from "./rentals";
 import NotFound from "./not-found";
-import MovieDetails from "./movieDetails";
 import LoginForm from "./loginForm";
 import RegisterForm from "./registerForm";
 
