@@ -1,6 +1,7 @@
 import React from "react";
 import Form from "./form";
 import Joi from "joi-browser";
+import uuid from "uuid";
 
 class MovieDetails extends Form {
   state = {
@@ -15,9 +16,20 @@ class MovieDetails extends Form {
     rate: Joi.number().required().min(0).max(10).label("Daily Rental Rate"),
   };
 
+  doSubmit = () => {
+    const { title, genre, stock, rate } = this.state.data;
+    this.props.onSubmitNewMovieDetails({
+      id: uuid(),
+      title,
+      genre,
+      stock,
+      rate,
+    });
+  };
+
   render() {
     let { id } = this.props.match.params;
-    let { movies } = this.props;
+    let { movies, onSubmitNewMovieDetails } = this.props;
 
     if (!movies?.map(m => m.id).find(e => e === id))
       this.props.history.replace("/not-found");
@@ -33,6 +45,20 @@ class MovieDetails extends Form {
         >
           Save
         </button>
+      </div>
+    );
+  }
+
+  render() {
+    return (
+      <div className="Movie Form">
+        <h1 className="mb-4">Register</h1>
+        <form onSubmit={this.handleSubmit}>
+          {this.renderInput("username", "Username")}
+          {this.renderInput("password", "Password", "password")}
+          {this.renderInput("name", "Name")}
+          {this.renderButton("Register")}
+        </form>
       </div>
     );
   }

@@ -1,58 +1,31 @@
 import React, { Component } from "react";
-import { getMovies } from "../services/fakeMovies";
 import ListItems from "./listItems";
 import Like from "./../utils/like";
 import { Link } from "react-router-dom";
 
 class Movies extends Component {
-  state = {
-    movies: [],
-    activeGenre: "",
-  };
-
-  componentDidMount() {
-    this.setState({
-      movies: getMovies().map(m => {
-        let newMovie = { ...m, liked: false };
-        return newMovie;
-      }),
-    });
-  }
-
-  uniqueGenres = movies => [...new Set(movies.map(m => m.genre))];
-
-  handleGenreClick = genreName => {
-    this.setState({ activeGenre: genreName });
-  };
-
-  handleDeleteMovie = movie => {
-    this.setState({ movies: this.state.movies.filter(m => m.id !== movie.id) });
-  };
-
-  handleLikeClick = movie => {
-    let newMovies = [...this.state.movies];
-    let index = newMovies.indexOf(movie);
-    let clickedMovie = { ...movie };
-    clickedMovie.liked = !clickedMovie.liked;
-    newMovies[index] = clickedMovie;
-    this.setState({ movies: newMovies });
-  };
-
   render() {
-    let movies = this.state.movies;
+    let {
+      movies,
+      handleDeleteMovie,
+      handleGenreClick,
+      handleLikeClick,
+      uniqueGenres,
+      activeGenre,
+    } = this.props;
     return (
       <div className="container">
         <div className="row">
           <div className="col-12 col-lg-3">
             <ListItems
-              activeItem={this.state.activeGenre}
-              list={this.uniqueGenres(this.state.movies)}
-              onItemClick={this.handleGenreClick}
+              activeItem={activeGenre}
+              list={uniqueGenres(movies)}
+              onItemClick={handleGenreClick}
             />
           </div>
           <div className="col-12 col-lg-9">
             <p style={{ fontWeight: "bold", fontSize: "1.5rem" }}>
-              Showing {this.state.movies.length} movies in the database
+              Showing {movies.length} movies in the database
             </p>
             <table className="table">
               <thead>
@@ -77,13 +50,13 @@ class Movies extends Component {
                     <td>
                       <Like
                         liked={m.liked}
-                        onClick={() => this.handleLikeClick(m)}
+                        onClick={() => handleLikeClick(m)}
                       />
                     </td>
                     <td>
                       <button
                         className="btn btn-danger btn-sm"
-                        onClick={() => this.handleDeleteMovie(m)}
+                        onClick={() => handleDeleteMovie(m)}
                       >
                         Delete
                       </button>
