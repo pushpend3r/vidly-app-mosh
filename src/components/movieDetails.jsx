@@ -27,27 +27,27 @@ class MovieDetails extends Form {
     });
   };
 
-  render() {
-    let { id } = this.props.match.params;
-    let { movies, onSubmitNewMovieDetails } = this.props;
+  // render() {
+  //   let { id } = this.props.match.params;
+  //   let { movies, onSubmitNewMovieDetails } = this.props;
 
-    if (!movies?.map(m => m.id).find(e => e === id))
-      this.props.history.replace("/not-found");
+  //   if (!movies?.map(m => m.id).find(e => e === id))
+  //     this.props.history.replace("/not-found");
 
-    return (
-      <div className="movie">
-        <h1>Movie {id}</h1>
-        <button
-          className="btn btn-primary btn-sm"
-          onClick={() => {
-            this.props.history.push("/movies");
-          }}
-        >
-          Save
-        </button>
-      </div>
-    );
-  }
+  //   return (
+  //     <div className="movie">
+  //       <h1>Movie {id}</h1>
+  //       <button
+  //         className="btn btn-primary btn-sm"
+  //         onClick={() => {
+  //           this.props.history.push("/movies");
+  //         }}
+  //       >
+  //         Save
+  //       </button>
+  //     </div>
+  //   );
+  // }
 
   render() {
     return (
