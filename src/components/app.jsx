@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Redirect, Route, Switch } from "react-router";
+import { Redirect, Route, Switch, useParams } from "react-router-dom";
 import { getMovies } from "../services/fakeMovies";
 import Navbar from "./navbar";
 import Movies from "./movies";
@@ -45,7 +45,12 @@ class App extends Component {
   };
 
   handleSubmitNewMovieDetails = movie => {
-    console.log("details submitted");
+    const newMovies = { ...this.state.movies };
+    const index = newMovies.indexOf(movie);
+    if (!index) newMovies.push(movie);
+    else newMovies[index] = { ...movie };
+
+    this.setState({ movies: newMovies });
   };
 
   render() {
@@ -63,34 +68,44 @@ class App extends Component {
                 <Movies
                   movies={this.state.movies}
                   uniqueGenres={this.uniqueGenres}
-                  handleGenreClick={this.handleGenreClick}
-                  handleDeleteMovie={this.handleDeleteMovie}
-                  handleLikeClick={this.handleLikeClick}
+                  onGenreClick={this.handleGenreClick}
+                  onDeleteMovie={this.handleDeleteMovie}
+                  onLikeClick={this.handleLikeClick}
                   activeGenre={this.state.activeGenre}
                   {...props}
                 />
               )}
             />
-            <Route
+            {/* <Route
+              path="/movies/:id"
+              component={props => {
+                console.log("movielist page");
+                return (
+                  <MoviesDetails
+                    movie={this.state.movies.find(m => m.id === useParams().id)}
+                    onSubmitNewMovieDetails={this.handleSubmitNewMovieDetails}
+                    {...props}
+                  />
+                );
+              }}
+            /> */}
+            <Route path="/movies/:id" component={<h1>Hello World</h1>} />
+            {/* <Route
               path="/movies/new"
               component={props => (
                 <MoviesDetails
-                  movie={{ id: "", title: "", genre: "", stock: "", rate: "" }}
+                  movie={{
+                    title: "",
+                    genre: "",
+                    stock: "",
+                    rate: "",
+                    liked: false,
+                  }}
                   onSubmitNewMovieDetails={this.handleSubmitNewMovieDetails}
                   {...props}
                 />
               )}
-            />
-            <Route
-              path="/movies/:id"
-              component={props => (
-                <MoviesDetails
-                  movie={{ id: "", title: "", genre: "", stock: "", rate: "" }}
-                  onSubmitNewMovieDetails={this.handleSubmitNewMovieDetails}
-                  {...props}
-                />
-              )}
-            />
+            /> */}
             <Route path="/customers" component={Customers} />
             <Route path="/rentals" component={Rentals} />
             <Redirect exact from="/" to="/movies" />

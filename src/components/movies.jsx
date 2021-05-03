@@ -7,9 +7,9 @@ class Movies extends Component {
   render() {
     let {
       movies,
-      handleDeleteMovie,
-      handleGenreClick,
-      handleLikeClick,
+      onDeleteMovie,
+      onGenreClick,
+      onLikeClick,
       uniqueGenres,
       activeGenre,
     } = this.props;
@@ -20,7 +20,7 @@ class Movies extends Component {
             <ListItems
               activeItem={activeGenre}
               list={uniqueGenres(movies)}
-              onItemClick={handleGenreClick}
+              onItemClick={onGenreClick}
             />
           </div>
           <div className="col-12 col-lg-9">
@@ -48,15 +48,12 @@ class Movies extends Component {
                     <td>{m.stock}</td>
                     <td>{m.rate}</td>
                     <td>
-                      <Like
-                        liked={m.liked}
-                        onClick={() => handleLikeClick(m)}
-                      />
+                      <Like liked={m.liked} onClick={() => onLikeClick(m)} />
                     </td>
                     <td>
                       <button
                         className="btn btn-danger btn-sm"
-                        onClick={() => handleDeleteMovie(m)}
+                        onClick={() => onDeleteMovie(m)}
                       >
                         Delete
                       </button>
