@@ -4,12 +4,11 @@ import { getMovies } from "../services/fakeMovies";
 import Navbar from "./navbar";
 import Movies from "./movies";
 import Customers from "./customers";
-import MoviesDetails from "./movieDetails";
+import MovieForm from "./movieForm";
 import Rentals from "./rentals";
 import NotFound from "./not-found";
 import LoginForm from "./loginForm";
 import RegisterForm from "./registerForm";
-import Test from "./for_testing";
 
 class App extends Component {
   state = {
@@ -45,7 +44,7 @@ class App extends Component {
     this.setState({ movies: newMovies });
   };
 
-  handleSubmitNewMovieDetails = movie => {
+  handleSubmitMovieForm = movie => {
     const newMovies = { ...this.state.movies };
     const index = newMovies.indexOf(movie);
     if (!index) newMovies.push(movie);
@@ -67,11 +66,10 @@ class App extends Component {
               path="/movies/:id"
               component={props => {
                 const { id } = useParams();
-
                 return (
-                  <MoviesDetails
-                    movie={this.state.movies.filter(m => m.id === id)}
-                    onSubmitNewMovieDetails={this.handleSubmitNewMovieDetails}
+                  <MovieForm
+                    movie={this.state.movies.find(m => m.id === id)}
+                    onSubmitMovieForm={this.handleSubmitMovieForm}
                     genres={this.uniqueGenres}
                     {...props}
                   />
