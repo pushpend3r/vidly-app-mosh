@@ -5,8 +5,13 @@ import { v4 as uuidv4 } from "uuid";
 
 class MovieDetails extends Form {
   state = {
-    data: {},
-    error: {},
+    data: {
+      title: "",
+      genre: "",
+      stock: null,
+      rate: null,
+    },
+    errors: {},
   };
 
   componentDidMount() {
@@ -35,17 +40,24 @@ class MovieDetails extends Form {
   render() {
     if (!this.props.movie) this.props.history.replace("/not-found");
 
+    const { genres } = this.props;
+
     return (
       <div className="Movie Form">
         <h1 className="mb-4">Movie Form</h1>
         <form onSubmit={this.handleSubmit}>
           {this.renderInput("title", "Title")}
-          <select className="form-select" id="genreSelect">
-            <option selected value=""></option>
-            <option value="1">Action</option>
-            <option value="2">Thriller</option>
-            <option value="3">Comedy</option>
-          </select>
+          <div className="mb-3">
+            <select className="form-select" id="inputGroupSelect02">
+              <option selected>Choose...</option>
+              <option value="1">One</option>
+              <option value="2">Two</option>
+              <option value="3">Three</option>
+            </select>
+            <label className="input-group-text" for="inputGroupSelect02">
+              Options
+            </label>
+          </div>
           {this.renderInput("stock", "Stock")}
           {this.renderInput("rate", "Rate")}
           {this.renderButton("Save")}

@@ -9,6 +9,7 @@ import Rentals from "./rentals";
 import NotFound from "./not-found";
 import LoginForm from "./loginForm";
 import RegisterForm from "./registerForm";
+import Test from "./for_testing";
 
 class App extends Component {
   state = {
@@ -63,6 +64,21 @@ class App extends Component {
             <Route path="/login" component={LoginForm} />
             <Route path="/register" component={RegisterForm} />
             <Route
+              path="/movies/:id"
+              component={props => {
+                const { id } = useParams();
+
+                return (
+                  <MoviesDetails
+                    movie={this.state.movies.filter(m => m.id === id)}
+                    onSubmitNewMovieDetails={this.handleSubmitNewMovieDetails}
+                    genres={this.uniqueGenres}
+                    {...props}
+                  />
+                );
+              }}
+            />
+            <Route
               path="/movies"
               component={props => (
                 <Movies
@@ -76,36 +92,6 @@ class App extends Component {
                 />
               )}
             />
-            {/* <Route
-              path="/movies/:id"
-              component={props => {
-                console.log("movielist page");
-                return (
-                  <MoviesDetails
-                    movie={this.state.movies.find(m => m.id === useParams().id)}
-                    onSubmitNewMovieDetails={this.handleSubmitNewMovieDetails}
-                    {...props}
-                  />
-                );
-              }}
-            /> */}
-            <Route path="/movies/:id" component={<h1>Hello World</h1>} />
-            {/* <Route
-              path="/movies/new"
-              component={props => (
-                <MoviesDetails
-                  movie={{
-                    title: "",
-                    genre: "",
-                    stock: "",
-                    rate: "",
-                    liked: false,
-                  }}
-                  onSubmitNewMovieDetails={this.handleSubmitNewMovieDetails}
-                  {...props}
-                />
-              )}
-            /> */}
             <Route path="/customers" component={Customers} />
             <Route path="/rentals" component={Rentals} />
             <Redirect exact from="/" to="/movies" />
