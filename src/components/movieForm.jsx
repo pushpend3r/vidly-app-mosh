@@ -41,7 +41,7 @@ class MovieForm extends Form {
   render() {
     const { movie, genres } = this.props;
 
-    if (!movie) this.props.history.location.replace("/not-found");
+    if (!movie) this.props.history.replace("/not-found");
 
     return (
       <div className="movieForm">
