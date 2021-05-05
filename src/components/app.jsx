@@ -54,6 +54,7 @@ class App extends Component {
   };
 
   render() {
+    const { movies } = this.state;
     return (
       <>
         <Navbar />
@@ -63,14 +64,34 @@ class App extends Component {
             <Route path="/login" component={LoginForm} />
             <Route path="/register" component={RegisterForm} />
             <Route
+              path="/movies/new"
+              component={props => {
+                return (
+                  <MovieForm
+                    movie={{
+                      id: null,
+                      title: "",
+                      genre: "",
+                      stock: null,
+                      rate: null,
+                      liked: false,
+                    }}
+                    onSubmitMovieForm={this.handleSubmitMovieForm}
+                    genres={this.uniqueGenres(movies)}
+                    {...props}
+                  />
+                );
+              }}
+            />
+            <Route
               path="/movies/:id"
               component={props => {
                 const { id } = useParams();
                 return (
                   <MovieForm
-                    movie={this.state.movies.find(m => m.id === id)}
+                    movie={movies.find(m => m.id == id)}
                     onSubmitMovieForm={this.handleSubmitMovieForm}
-                    genres={this.uniqueGenres}
+                    genres={this.uniqueGenres(movies)}
                     {...props}
                   />
                 );

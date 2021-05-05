@@ -13,16 +13,19 @@ const SelectInput = ({
       <label htmlFor={name} className="form-label">
         {label}
       </label>
-      <select className="form-select" name={name} id={name} {...rest}>
-        <option
-          selected={selectedOption === "" ? true : false}
-          value=""
-        ></option>
-        {/* {options.map(o => (
-          <option value={o} selected={selectedOption === o ? true : false}>
+      <select
+        className="form-select"
+        name={name}
+        id={name}
+        {...rest}
+        value={selectedOption}
+      >
+        <option value=""></option>
+        {options.map((o, i) => (
+          <option key={i} value={o}>
             {o}
           </option>
-        ))} */}
+        ))}
       </select>
       {error && <div className="alert alert-danger">{error}</div>}
     </div>

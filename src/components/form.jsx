@@ -73,7 +73,6 @@ class Form extends Component {
 
   renderSelectInput = (name, label, options) => {
     const { data, errors } = this.state;
-
     return (
       <SelectInput
         name={name}
@@ -81,7 +80,7 @@ class Form extends Component {
         selectedOption={data[name]}
         label={label}
         onChange={this.handleChange}
-        errors={errors[name]}
+        error={errors[name]}
       />
     );
   };
